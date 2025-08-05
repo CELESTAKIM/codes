@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Illuminate & Donate - GIS Risk Response & Consultancy</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0d1117; /* Dark background for lighting effect */
+            color: #e0e0e0;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+        }
+        .gradient-text {
+            background: linear-gradient(90deg, #64ffda, #00d4ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .btn-primary {
+            @apply bg-gradient-to-r from-purple-600 to-indigo-700 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 ease-in-out relative overflow-hidden;
+        }
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 300%;
+            height: 300%;
+            background: rgba(255, 255, 255, 0.15);
+            transition: all 0.75s ease-out;
+            border-radius: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            opacity: 0;
+        }
+        .btn-primary:hover::before {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+        }
+        .nav-link {
+            @apply relative text-lg font-medium text-gray-300 hover:text-white transition-all duration-300 ease-in-out;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0%;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: #64ffda; /* Highlight color */
+            transition: width 0.3s ease-in-out;
+        }
+        .nav-link:hover::after, .nav-link.active::after {
+            width: 100%;
+        }
+        .card {
+            @apply bg-gray-800 bg-opacity-50 backdrop-filter backdrop-blur-lg rounded-xl shadow-2xl border border-gray-700 overflow-hidden relative;
+        }
+        .card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at center, rgba(100, 255, 218, 0.1) 0%, rgba(0, 212, 255, 0.05) 50%, transparent 70%);
+            animation: rotateLight 15s linear infinite;
+            opacity: 0.3;
+            z-index: -1;
+        }
+        @keyframes rotateLight {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .section-title {
+            @apply text-4xl md:text-5xl font-extrabold text-center mb-12 relative;
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, #64ffda, #00d4ff);
+            border-radius: 2px;
+        }
+        .input-field {
+            @apply w-full p-3 rounded-lg bg-gray-700 border border-gray-600 focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all duration-200 text-white;
+        }
+        .form-label {
+            @apply block text-gray-300 text-sm font-semibold mb-2;
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+        }
+        .modal-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal-content {
+            background-color: #1a202c; /* Darker background for modal */
+            padding: 2.5rem;
+            border-radius: 1rem;
+            max-width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            transform: translateY(-20px);
+            opacity: 0;
+            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+            border: 1px solid #4a5568;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+        }
+        .modal-overlay.show .modal-content {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        .modal-close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #cbd5e0;
+            cursor: pointer;
+            transition: color 0.2s ease-in-out;
+        }
+        .modal-close-btn:hover {
+            color: #ffffff;
+        }
+
+        /* Responsive adjustments for mobile menu icon */
+        @media (max-width: 767px) {
+            .mobile-menu-icon {
+                font-size: 2rem; /* Larger for easier tapping */
+                padding: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Header & Navigation -->
+    <header class="bg-gray-900 bg-opacity-70 backdrop-filter backdrop-blur-lg sticky top-0 z-50 shadow-lg">
+        <nav class="container mx-auto px-6 py-4 flex items-center justify-between">
+            <a href="#" class="flex items-center space-x-2">
+                <span class="text-3xl">💡</span> <!-- Replaced SVG with emoji -->
+                <span class="text-2xl font-bold gradient-text">Illuminate</span>
+            </a>
+            <div class="hidden md:flex space-x-8">
+                <a href="#home" class="nav-link active">Home</a>
+                <a href="#about" class="nav-link">About Us</a>
+                <a href="#causes" class="nav-link">Our Causes</a>
+                <a href="#impact" class="nav-link">Our Impact</a>
+                <a href="#donate" class="nav-link">Donate</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </div>
+            <div class="md:hidden">
+                <button id="mobile-menu-button" class="text-gray-300 hover:text-white focus:outline-none focus:text-white mobile-menu-icon">
+                    <span class="text-2xl">☰</span> <!-- Replaced SVG with text character -->
+                </button>
+            </div>
+        </nav>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-gray-800 bg-opacity-90 py-4">
+            <a href="#home" class="block px-6 py-2 text-lg text-gray-300 hover:text-white hover:bg-gray-700 transition-colors duration-200">Home</a>
+            <a href="#about" class="block px-6 py-2 text-lg text-gray-300 hover:text-white hover:bg-gray-700 transition-colors duration-200">About Us</a>
+            <a href="#causes" class="block px-6 py-2 text-lg text-gray-300 hover:text-white hover:bg-gray-700 transition-colors duration-200">Our Causes</a>
+            <a href="#impact" class="block px-6 py-2 text-lg text-gray-300 hover:text-white hover:bg-gray-700 transition-colors duration-200">Our Impact</a>
+            <a href="#donate" class="block px-6 py-2 text-lg text-gray-300 hover:text-white hover:bg-gray-700 transition-colors duration-200">Donate</a>
+            <a href="#contact" class="block px-6 py-2 text-lg text-gray-300 hover:text-white hover:bg-gray-700 transition-colors duration-200">Contact</a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="relative h-screen flex items-center justify-center text-center overflow-hidden">
+            <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://placehold.co/1920x1080/1a202c/ffffff?text=GIS+Risk+Response'); filter: brightness(0.6);"></div>
+            <div class="absolute inset-0 bg-gradient-to-br from-purple-900 to-indigo-900 opacity-70"></div>
+            <div class="relative z-10 p-6 max-w-4xl mx-auto">
+                <h1 class="text-5xl md:text-7xl font-extrabold leading-tight text-white mb-6 animate-fade-in-up">
+                    Quick Risk GIS Responses, <span class="gradient-text">Empowering Decisions</span>
+                </h1>
+                <p class="text-xl md:text-2xl text-gray-200 mb-10 animate-fade-in-up delay-200">
+                    Illuminate provides rapid Geographic Information Systems (GIS) solutions for critical risk assessment, prediction, and consultancy. Your support helps us save lives and build resilience.
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4 animate-fade-in-up delay-400">
+                    <a href="#donate" class="btn-primary">Donate Now</a>
+                    <a href="#about" class="btn-primary bg-transparent border border-purple-500 hover:bg-purple-700 hover:border-purple-700">Learn More About Us</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Us Section -->
+        <section id="about" class="py-20 bg-gray-900 bg-opacity-80 relative">
+            <div class="container mx-auto px-6">
+                <h2 class="section-title gradient-text">About Illuminate</h2>
+                <div class="grid md:grid-cols-2 gap-12 items-center mt-16">
+                    <div class="card p-8">
+                        <h3 class="text-3xl font-bold text-white mb-4">Our Mission</h3>
+                        <p class="text-gray-300 leading-relaxed mb-6">
+                            Founded by **Kimathi Joram**, Illuminate is dedicated to leveraging Geographic Information Systems (GIS) for **quick risk responses**. Our mission is to provide critical data analysis, predictive modeling, and expert consultancy to organizations and communities facing immediate and long-term risks. We aim to empower decision-makers with accurate, spatially-aware insights to mitigate disasters, optimize resource allocation, and enhance overall safety and efficiency.
+                        </p>
+                        <p class="text-gray-300 leading-relaxed">
+                            Our team, comprising dedicated staff and members, works collaboratively with various stakeholders, including government agencies, NGOs, and local communities, to implement robust GIS solutions. We are committed to transparency and accountability in all our projects, ensuring every contribution directly supports our operational capabilities and outreach.
+                        </p>
+                    </div>
+                    <div class="card p-8">
+                        <h3 class="text-3xl font-bold text-white mb-4">Our Vision</h3>
+                        <p class="text-gray-300 leading-relaxed mb-6">
+                            We envision a world where every community, regardless of its location or resources, has immediate access to advanced GIS insights for proactive risk management. Illuminate strives to be the leading non-profit in GIS-driven humanitarian and developmental responses, fostering a global network of informed decision-makers. Our vision is to build a more resilient and secure world through the power of spatial intelligence, preventing crises before they escalate and enabling swift, effective recovery.
+                        </p>
+                        <p class="text-gray-300 leading-relaxed">
+                            We continuously innovate our methodologies and expand our reach, ensuring our GIS expertise serves as a vital tool for preparedness, response, and sustainable development. We are grateful for our network of kind donors who make our vital work possible.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Our Causes Section -->
+        <section id="causes" class="py-20 bg-gray-800 bg-opacity-80 relative">
+            <div class="container mx-auto px-6">
+                <h2 class="section-title gradient-text">Our Core Causes & GIS Applications</h2>
+                <div class="grid md:grid-cols-3 gap-8 mt-16">
+                    <div class="card p-6 flex flex-col items-center text-center">
+                        <div class="text-purple-400 mb-4 text-5xl">🚨</div> <!-- GIS Risk Response -->
+                        <h3 class="text-2xl font-bold text-white mb-3">Emergency GIS Response</h3>
+                        <p class="text-gray-300 leading-relaxed">
+                            Deploying rapid GIS mapping and analysis during natural disasters, humanitarian crises, and public health emergencies to guide immediate response efforts.
+                        </p>
+                        <button class="mt-4 text-purple-400 hover:text-purple-300 transition-colors duration-200 learn-more-btn" data-modal-target="modal-emergency-gis">Learn More &rarr;</button>
+                    </div>
+                    <div class="card p-6 flex flex-col items-center text-center">
+                        <div class="text-green-400 mb-4 text-5xl">📈</div> <!-- Predictive Analytics -->
+                        <h3 class="text-2xl font-bold text-white mb-3">Predictive Risk Modeling</h3>
+                        <p class="text-gray-300 leading-relaxed">
+                            Utilizing advanced GIS analytics to predict potential risks like disease outbreaks, famine, or environmental hazards, enabling proactive interventions.
+                        </p>
+                        <button class="mt-4 text-green-400 hover:text-green-300 transition-colors duration-200 learn-more-btn" data-modal-target="modal-predictive-modeling">Learn More &rarr;</button>
+                    </div>
+                    <div class="card p-6 flex flex-col items-center text-center">
+                        <div class="text-blue-400 mb-4 text-5xl">🤝</div> <!-- Consultancy & Training -->
+                        <h3 class="text-2xl font-bold text-white mb-3">GIS Consultancy & Training</h3>
+                        <p class="text-gray-300 leading-relaxed">
+                            Providing expert GIS consultancy and training to local organizations and governments, building long-term capacity for spatial data management.
+                        </p>
+                        <button class="mt-4 text-blue-400 hover:text-blue-300 transition-colors duration-200 learn-more-btn" data-modal-target="modal-consultancy-training">Learn More &rarr;</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Our Impact Section -->
+        <section id="impact" class="py-20 bg-gray-900 bg-opacity-80 relative">
+            <div class="container mx-auto px-6">
+                <h2 class="section-title gradient-text">Our Impact in Numbers</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 mt-16 text-center">
+                    <div class="card p-6">
+                        <h3 class="text-5xl font-bold gradient-text mb-2">150+</h3>
+                        <p class="text-gray-300 text-lg">Rapid GIS Deployments</p>
+                    </div>
+                    <div class="card p-6">
+                        <h3 class="text-5xl font-bold gradient-text mb-2">5000+</h3>
+                        <p class="text-gray-300 text-lg">Lives Protected</p>
+                    </div>
+                    <div class="card p-6">
+                        <h3 class="text-5xl font-bold gradient-text mb-2">25+</h3>
+                        <p class="text-gray-300 text-lg">Organizations Trained</p>
+                    </div>
+                    <div class="card p-6">
+                        <h3 class="text-5xl font-bold gradient-text mb-2">100%</h3>
+                        <p class="text-gray-300 text-lg">Data Transparency</p>
+                    </div>
+                </div>
+                <div class="mt-16 text-center">
+                    <p class="text-xl text-gray-300 mb-8">
+                        Every donation directly contributes to these life-saving GIS initiatives. See our detailed impact reports to learn more.
+                    </p>
+                    <a href="#" class="btn-primary">View Reports</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Donation Section -->
+        <section id="donate" class="py-20 bg-gray-800 bg-opacity-80 relative">
+            <div class="container mx-auto px-6">
+                <h2 class="section-title gradient-text">Make a Donation</h2>
+                <div class="max-w-xl mx-auto card p-8 mt-16">
+                    <p class="text-gray-300 text-lg text-center mb-8">
+                        Your generosity fuels our mission. Choose an amount or enter your custom donation.
+                    </p>
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
+                        <button class="donation-amount-btn btn-primary bg-gray-700 hover:bg-purple-600 text-white py-3 px-4 rounded-lg transition-all duration-200" data-amount="100">Ksh 100</button>
+                        <button class="donation-amount-btn btn-primary bg-gray-700 hover:bg-purple-600 text-white py-3 px-4 rounded-lg transition-all duration-200" data-amount="500">Ksh 500</button>
+                        <button class="donation-amount-btn btn-primary bg-gray-700 hover:bg-purple-600 text-white py-3 px-4 rounded-lg transition-all duration-200" data-amount="1000">Ksh 1000</button>
+                        <button class="donation-amount-btn btn-primary bg-gray-700 hover:bg-purple-600 text-white py-3 px-4 rounded-lg transition-all duration-200" data-amount="2500">Ksh 2500</button>
+                    </div>
+                    <div class="mb-6">
+                        <label for="custom-amount" class="form-label">Or enter custom amount:</label>
+                        <input type="number" id="custom-amount" class="input-field" placeholder="e.g., 1500" min="10">
+                    </div>
+                    <div class="mb-6">
+                        <label for="phone-number" class="form-label">Your M-Pesa Phone Number (e.g., 07XXXXXXXX):</label>
+                        <input type="tel" id="phone-number" class="input-field" placeholder="0702781490" value="0702781490">
+                    </div>
+                    <button id="stk-push-button" class="btn-primary w-full">Initiate M-Pesa STK Push</button>
+                    <div id="stk-message" class="mt-4 text-center text-sm text-yellow-400 hidden">
+                        Awaiting M-Pesa STK Push on your phone...
+                    </div>
+                    <div id="stk-error" class="mt-4 text-center text-sm text-red-500 hidden">
+                        Error initiating STK Push. Please try again.
+                    </div>
+                    <div id="stk-success" class="mt-4 text-center text-sm text-green-500 hidden">
+                        STK Push successful! Thank you for your donation.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section id="testimonials" class="py-20 bg-gray-900 bg-opacity-80 relative">
+            <div class="container mx-auto px-6">
+                <h2 class="section-title gradient-text">What Our Partners Say</h2>
+                <div class="grid md:grid-cols-3 gap-8 mt-16">
+                    <div class="card p-6 text-center">
+                        <p class="text-gray-300 italic mb-4">"Illuminate's rapid GIS response during the floods was instrumental. Their maps guided our rescue teams effectively."</p>
+                        <p class="font-semibold text-white">- Emergency Services Coordinator</p>
+                    </div>
+                    <div class="card p-6 text-center">
+                        <p class="text-gray-300 italic mb-4">"The predictive models developed by Illuminate helped us allocate resources efficiently, preventing a major health crisis."</p>
+                        <p class="font-semibold text-white">- Public Health Official</p>
+                    </div>
+                    <div class="card p-6 text-center">
+                        <p class="text-gray-300 italic mb-4">"Kimathi Joram and his team provided invaluable GIS training, significantly enhancing our local capacity for disaster preparedness."</p>
+                        <p class="font-semibold text-white">- Community Development Lead</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Call to Action Section -->
+        <section class="py-20 bg-gradient-to-r from-purple-800 to-indigo-800 text-white text-center relative overflow-hidden">
+            <div class="absolute inset-0 opacity-20" style="background-image: url('https://placehold.co/1920x1080/000000/ffffff?text=Abstract+GIS+Pattern'); filter: blur(5px);"></div>
+            <div class="relative z-10 container mx-auto px-6">
+                <h2 class="text-4xl md:text-5xl font-extrabold mb-6">Empower GIS for a Safer World</h2>
+                <p class="text-xl md:text-2xl mb-10">Your support directly fuels our GIS innovation and rapid response capabilities.</p>
+                <a href="#donate" class="btn-primary bg-white text-purple-800 hover:bg-gray-200">Support Our Mission</a>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-20 bg-gray-800 bg-opacity-80 relative">
+            <div class="container mx-auto px-6">
+                <h2 class="section-title gradient-text">Get in Touch</h2>
+                <div class="max-w-2xl mx-auto card p-8 mt-16">
+                    <p class="text-gray-300 text-lg text-center mb-8">
+                        Have questions or want to collaborate on a GIS project? We'd love to hear from you.
+                    </p>
+                    <form id="contact-form" class="space-y-6">
+                        <div>
+                            <label for="name" class="form-label">Your Name:</label>
+                            <input type="text" id="name" class="input-field" placeholder="John Doe" required>
+                        </div>
+                        <div>
+                            <label for="email" class="form-label">Your Email:</label>
+                            <input type="email" id="email" class="input-field" placeholder="john.doe@example.com" required>
+                        </div>
+                        <div>
+                            <label for="subject" class="form-label">Subject:</label>
+                            <input type="text" id="subject" class="input-field" placeholder="Inquiry about GIS services" required>
+                        </div>
+                        <div>
+                            <label for="message" class="form-label">Your Message:</label>
+                            <textarea id="message" rows="5" class="input-field" placeholder="Type your message here..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn-primary w-full">Send Message</button>
+                        <div id="contact-message" class="mt-4 text-center text-sm text-green-500 hidden">
+                            Your message has been sent successfully! We'll get back to you soon.
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 bg-opacity-70 py-10 text-center text-gray-400">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center mb-6">
+                <div class="mb-4 md:mb-0">
+                    <a href="#" class="flex items-center space-x-2 justify-center md:justify-start">
+                        <span class="text-xl">💡</span> <!-- Replaced SVG with emoji -->
+                        <span class="text-xl font-bold gradient-text">Illuminate</span>
+                    </a>
+                </div>
+                <div class="flex flex-wrap justify-center md:justify-start space-x-4 md:space-x-6 mb-4 md:mb-0">
+                    <a href="#" class="hover:text-white transition-colors duration-200">Privacy Policy</a>
+                    <a href="#" class="hover:text-white transition-colors duration-200">Terms of Service</a>
+                    <a href="#" class="hover:text-white transition-colors duration-200">Sitemap</a>
+                </div>
+                <div class="flex space-x-4 justify-center md:justify-end">
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors duration-200">Facebook</a> <!-- Replaced SVG with text -->
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors duration-200">Twitter</a> <!-- Replaced SVG with text -->
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors duration-200">LinkedIn</a> <!-- Replaced SVG with text -->
+                </div>
+            </div>
+            <p class="text-sm mt-6">&copy; 2023 Illuminate. All rights reserved. Founded by Kimathi Joram.</p>
+        </div>
+    </footer>
+
+    <!-- Modals for Learn More Sections -->
+
+    <!-- Modal for Emergency GIS Response -->
+    <div id="modal-emergency-gis" class="modal-overlay hidden">
+        <div class="modal-content">
+            <button class="modal-close-btn">&times;</button>
+            <h3 class="text-3xl font-bold gradient-text mb-4">Emergency GIS Response</h3>
+            <img src="https://placehold.co/600x300/334155/ffffff?text=Emergency+Map" alt="Emergency GIS Map" class="w-full h-48 object-cover rounded-lg mb-6">
+            <p class="text-gray-300 mb-4">
+                In times of crisis, rapid and accurate information is paramount. Our Emergency GIS Response team deploys quickly to affected areas, utilizing satellite imagery, drone data, and ground surveys to create real-time maps. These maps are crucial for visualizing the extent of damage, identifying safe evacuation routes, locating displaced populations, and directing aid efforts effectively. We provide critical spatial intelligence to first responders, humanitarian organizations, and local authorities, enabling them to make informed decisions under pressure.
+            </p>
+            <p class="text-gray-300">
+                Examples include mapping flood inundation zones, tracking wildfire progression, assessing earthquake damage, and planning logistical routes for aid distribution in complex terrains. Our swift analysis helps minimize casualties and optimize humanitarian interventions.
+            </p>
+        </div>
+    </div>
+
+    <!-- Modal for Predictive Risk Modeling -->
+    <div id="modal-predictive-modeling" class="modal-overlay hidden">
+        <div class="modal-content">
+            <button class="modal-close-btn">&times;</button>
+            <h3 class="text-3xl font-bold gradient-text mb-4">Predictive Risk Modeling</h3>
+            <img src="https://placehold.co/600x300/334155/ffffff?text=Predictive+Model" alt="Predictive Risk Model" class="w-full h-48 object-cover rounded-lg mb-6">
+            <p class="text-gray-300 mb-4">
+                Prevention is key to resilience. Our predictive risk modeling leverages historical data, environmental factors, and advanced statistical algorithms within a GIS framework to forecast potential future risks. This includes predicting areas prone to drought, identifying regions at high risk of disease outbreaks, or forecasting the impact of climate change on vulnerable populations. By identifying these risks in advance, we empower communities and governments to implement proactive mitigation strategies.
+            </p>
+            <p class="text-gray-300">
+                Our models help in resource pre-positioning, early warning system development, and long-term strategic planning to build resilience against various threats, from food insecurity to natural hazards.
+            </p>
+        </div>
+    </div>
+
+    <!-- Modal for GIS Consultancy & Training -->
+    <div id="modal-consultancy-training" class="modal-overlay hidden">
+        <div class="modal-content">
+            <button class="modal-close-btn">&times;</button>
+            <h3 class="text-3xl font-bold gradient-text mb-4">GIS Consultancy & Training</h3>
+            <img src="https://placehold.co/600x300/334155/ffffff?text=GIS+Training" alt="GIS Training Session" class="w-full h-48 object-cover rounded-lg mb-6">
+            <p class="text-gray-300 mb-4">
+                Beyond immediate response, we are committed to building sustainable local capacity. Our GIS consultancy services assist organizations in integrating spatial intelligence into their operations, from data collection and management to advanced analysis and visualization. We also offer comprehensive training programs tailored to various skill levels, ensuring local teams can independently utilize GIS tools for their specific needs.
+            </p>
+            <p class="text-gray-300">
+                This includes workshops on data collection using mobile GIS, advanced spatial analysis techniques, map production, and setting up sustainable GIS infrastructure. By empowering local experts, we foster self-sufficiency and long-term impact in risk management and development.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Highlight active nav link on scroll
+        const sections = document.querySelectorAll('main section');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                // Adjusting offset to make active state more accurate
+                if (pageYOffset >= sectionTop - 150 && pageYOffset < sectionTop + sectionHeight - 150) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').includes(current)) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Donation amount selection logic
+        let selectedAmount = 0;
+        const donationAmountBtns = document.querySelectorAll('.donation-amount-btn');
+        const customAmountInput = document.getElementById('custom-amount');
+        const stkPushButton = document.getElementById('stk-push-button');
+        const phoneNumberInput = document.getElementById('phone-number');
+        const stkMessageDiv = document.getElementById('stk-message');
+        const stkErrorDiv = document.getElementById('stk-error');
+        const stkSuccessDiv = document.getElementById('stk-success');
+
+        donationAmountBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all buttons
+                donationAmountBtns.forEach(b => b.classList.remove('bg-purple-600', 'hover:bg-purple-700'));
+                donationAmountBtns.forEach(b => b.classList.add('bg-gray-700', 'hover:bg-purple-600'));
+
+                // Add active class to the clicked button
+                btn.classList.remove('bg-gray-700', 'hover:bg-purple-600');
+                btn.classList.add('bg-purple-600', 'hover:bg-purple-700');
+
+                selectedAmount = parseInt(btn.dataset.amount);
+                customAmountInput.value = ''; // Clear custom amount if a preset is selected
+                stkErrorDiv.classList.add('hidden'); // Hide any previous errors
+            });
+        });
+
+        customAmountInput.addEventListener('input', () => {
+            // Clear active class from all preset buttons
+            donationAmountBtns.forEach(b => b.classList.remove('bg-purple-600', 'hover:bg-purple-700'));
+            donationAmountBtns.forEach(b => b.classList.add('bg-gray-700', 'hover:bg-purple-600'));
+
+            selectedAmount = parseInt(customAmountInput.value) || 0;
+            stkErrorDiv.classList.add('hidden'); // Hide any previous errors
+        });
+
+        // STK Push Integration (Placeholder - requires backend)
+        stkPushButton.addEventListener('click', async () => {
+            const amount = selectedAmount || parseInt(customAmountInput.value);
+            const phoneNumber = phoneNumberInput.value;
+
+            // Basic validation
+            if (amount <= 0 || isNaN(amount)) {
+                stkErrorDiv.textContent = 'Please enter a valid donation amount (e.g., 100).';
+                stkErrorDiv.classList.remove('hidden');
+                stkMessageDiv.classList.add('hidden');
+                stkSuccessDiv.classList.add('hidden');
+                return;
+            }
+            // Validate Kenyan phone number format
+            if (!phoneNumber || !/^(07|2547)\d{8}$/.test(phoneNumber)) {
+                stkErrorDiv.textContent = 'Please enter a valid Kenyan M-Pesa phone number (e.g., 07XXXXXXXX).';
+                stkErrorDiv.classList.remove('hidden');
+                stkMessageDiv.classList.add('hidden');
+                stkSuccessDiv.classList.add('hidden');
+                return;
+            }
+
+            // Show loading message
+            stkMessageDiv.classList.remove('hidden');
+            stkErrorDiv.classList.add('hidden');
+            stkSuccessDiv.classList.add('hidden');
+            stkPushButton.disabled = true; // Disable button to prevent multiple clicks
+
+            // In a real application, you would make a fetch request to your backend here.
+            // The backend would then initiate the STK Push with Safaricom's Daraja API.
+            // For this HTML-only example, we simulate the API call.
+            try {
+                // Simulate API call delay
+                await new Promise(resolve => setTimeout(Math.random() * 2000 + 1000, resolve)); // 1-3 seconds delay
+
+                // This is where your actual API call to your backend would go.
+                // For demonstration, we'll simulate success or failure.
+                const simulatedSuccess = Math.random() > 0.2; // 80% chance of success
+
+                if (simulatedSuccess) {
+                    stkSuccessDiv.classList.remove('hidden');
+                    stkMessageDiv.classList.add('hidden');
+                    // Clear inputs on success
+                    customAmountInput.value = '';
+                    phoneNumberInput.value = '0702781490'; // Reset to default or clear completely
+                    selectedAmount = 0;
+                    donationAmountBtns.forEach(b => b.classList.remove('bg-purple-600', 'hover:bg-purple-700'));
+                    donationAmountBtns.forEach(b => b.classList.add('bg-gray-700', 'hover:bg-purple-600'));
+                } else {
+                    stkErrorDiv.textContent = 'STK Push failed. Please check your number or try again later.';
+                    stkErrorDiv.classList.remove('hidden');
+                    stkMessageDiv.classList.add('hidden');
+                }
+
+            } catch (error) {
+                console.error('Error during STK Push simulation:', error);
+                stkErrorDiv.textContent = 'An unexpected error occurred. Please try again.';
+                stkErrorDiv.classList.remove('hidden');
+                stkMessageDiv.classList.add('hidden');
+            } finally {
+                stkPushButton.disabled = false; // Re-enable button
+            }
+        });
+
+        // Contact Form Submission (Client-side only)
+        const contactForm = document.getElementById('contact-form');
+        const contactMessageDiv = document.getElementById('contact-message');
+
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault(); // Prevent default form submission
+
+            // Simple client-side validation
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+
+            if (name && email && subject && message) {
+                // In a real application, you would send this data to a backend server
+                // For demonstration, we'll just show a success message
+                contactMessageDiv.classList.remove('hidden');
+                contactForm.reset(); // Clear the form
+                setTimeout(() => {
+                    contactMessageDiv.classList.add('hidden'); // Hide message after a few seconds
+                }, 5000);
+            } else {
+                // This case should ideally be covered by 'required' attribute, but as a fallback:
+                alert('Please fill in all fields.');
+            }
+        });
+
+
+        // Modal functionality for "Learn More" buttons
+        const learnMoreButtons = document.querySelectorAll('.learn-more-btn');
+        const modalOverlays = document.querySelectorAll('.modal-overlay');
+        const modalCloseButtons = document.querySelectorAll('.modal-close-btn');
+
+        learnMoreButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const targetModalId = button.dataset.modalTarget;
+                const targetModal = document.getElementById(targetModalId);
+                if (targetModal) {
+                    targetModal.classList.add('show');
+                    document.body.style.overflow = 'hidden'; // Prevent scrolling background
+                }
+            });
+        });
+
+        modalCloseButtons.forEach(button => {
+            button.addEventListener('click', (event) => {
+                const modalOverlay = event.target.closest('.modal-overlay');
+                if (modalOverlay) {
+                    modalOverlay.classList.remove('show');
+                    document.body.style.overflow = ''; // Restore scrolling
+                }
+            });
+        });
+
+        // Close modal if clicked outside content
+        modalOverlays.forEach(overlay => {
+            overlay.addEventListener('click', (event) => {
+                if (event.target === overlay) {
+                    overlay.classList.remove('show');
+                    document.body.style.overflow = ''; // Restore scrolling
+                }
+            });
+        });
+
+    </script>
+</body>
+</html>
