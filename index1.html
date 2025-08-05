@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GeoVisionary - GIS Content Creator</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts - Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8; /* Light blue-gray background */
+            color: #334155; /* Dark slate gray text */
+        }
+        .nav-link-glow {
+            position: relative;
+            transition: color 0.3s ease-in-out, text-shadow 0.3s ease-in-out;
+        }
+        .nav-link-glow:hover {
+            color: #60a5fa; /* Blue-400 */
+            text-shadow: 0 0 8px rgba(96, 165, 250, 0.7); /* Subtle blue glow */
+        }
+        .btn-glow {
+            transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+        .btn-glow:hover {
+            background-color: #3b82f6; /* Blue-600 */
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.6); /* Stronger blue glow */
+        }
+        /* Custom scrollbar for better aesthetics */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #e2e8f0;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #94a3b8;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #64748b;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Header Section -->
+    <header class="bg-white shadow-lg py-4 px-6 md:px-12 fixed w-full z-50 rounded-b-xl">
+        <div class="container mx-auto flex justify-between items-center">
+            <!-- Logo/Site Title -->
+            <a href="#hero" class="flex items-center space-x-2 text-2xl font-bold text-gray-800 hover:text-blue-600 transition duration-300">
+                <svg class="w-8 h-8 text-blue-500" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93h7v7.93zm1-15.93c3.95.49 7 3.85 7 7.93h-7V4.07zm0 14.93V12h7c0 4.08-3.05 7.44-7 7.93zM12 4.07V12H5c0-4.08 3.05-7.44 7-7.93z"/>
+                </svg>
+                <span>GeoVisionary</span>
+            </a>
+
+            <!-- Navigation Menu -->
+            <nav>
+                <ul class="flex space-x-6">
+                    <li><a href="#about" class="nav-link-glow text-gray-600 hover:text-blue-500 text-lg font-medium">About</a></li>
+                    <li><a href="#services" class="nav-link-glow text-gray-600 hover:text-blue-500 text-lg font-medium">Services</a></li>
+                    <li><a href="#portfolio" class="nav-link-glow text-gray-600 hover:text-blue-500 text-lg font-medium">Portfolio</a></li>
+                    <li><a href="#testimonials" class="nav-link-glow text-gray-600 hover:text-blue-500 text-lg font-medium">Testimonials</a></li>
+                    <li><a href="#contact" class="nav-link-glow text-gray-600 hover:text-blue-500 text-lg font-medium">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="hero" class="relative bg-gradient-to-r from-blue-600 to-purple-700 text-white py-32 px-6 md:px-12 flex items-center justify-center min-h-screen-75 rounded-b-3xl shadow-xl">
+        <div class="container mx-auto text-center z-10">
+            <h1 class="text-5xl md:text-6xl font-extrabold leading-tight mb-6 animate-fade-in-down">
+                Unlocking Insights with Geospatial Intelligence
+            </h1>
+            <p class="text-xl md:text-2xl mb-10 max-w-3xl mx-auto opacity-90 animate-fade-in-up">
+                Your go-to source for cutting-edge GIS content, tutorials, and spatial analysis expertise.
+            </p>
+            <a href="#services" class="inline-block bg-white text-blue-700 font-bold py-4 px-10 rounded-full text-lg shadow-lg hover:bg-gray-100 btn-glow transition duration-300 transform hover:scale-105">
+                Explore My Content
+            </a>
+        </div>
+        <!-- Background elements for visual appeal -->
+        <div class="absolute inset-0 overflow-hidden">
+            <div class="absolute w-96 h-96 bg-white opacity-10 rounded-full -top-20 -left-20 animate-pulse"></div>
+            <div class="absolute w-72 h-72 bg-white opacity-10 rounded-full -bottom-10 -right-10 animate-pulse-slow"></div>
+            <div class="absolute w-64 h-64 bg-white opacity-10 rounded-full top-1/4 right-1/4 animate-pulse-fast"></div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 px-6 md:px-12 bg-gray-50 rounded-xl shadow-inner my-12 mx-auto max-w-7xl">
+        <div class="container mx-auto flex flex-col md:flex-row items-center gap-12">
+            <div class="md:w-1/2">
+                <h2 class="text-4xl font-bold text-gray-800 mb-6 leading-tight">
+                    Passionate About <span class="text-blue-600">Geospatial Innovation</span>
+                </h2>
+                <p class="text-lg text-gray-700 mb-4 leading-relaxed">
+                    Welcome! I'm dedicated to demystifying the world of Geographic Information Systems (GIS) and making complex spatial concepts accessible to everyone. With years of experience in mapping, remote sensing, and data visualization, I create engaging content that inspires and educates.
+                </p>
+                <p class="text-lg text-gray-700 leading-relaxed">
+                    My mission is to empower individuals and organizations to leverage the power of location intelligence for better decision-making, problem-solving, and understanding our planet. From beginner tutorials to advanced analytical techniques, you'll find a wealth of resources here.
+                </p>
+                <ul class="list-disc list-inside text-gray-600 mt-6 space-y-2">
+                    <li>Expertise in ArcGIS, QGIS, Python (Geopandas), R (sf)</li>
+                    <li>Specialization in environmental GIS, urban planning, and public health mapping</li>
+                    <li>Committed to clear, practical, and impactful content creation</li>
+                </ul>
+            </div>
+            <div class="md:w-1/2 flex justify-center">
+                <img src="https://placehold.co/500x350/60a5fa/ffffff?text=GIS+Expert" alt="GIS Expert at work" class="rounded-xl shadow-2xl transform hover:scale-105 transition duration-500 ease-in-out border-4 border-blue-300">
+            </div>
+        </div>
+    </section>
+
+    <!-- Services/Content Offerings Section -->
+    <section id="services" class="py-20 px-6 md:px-12 bg-blue-50 rounded-xl shadow-inner my-12 mx-auto max-w-7xl">
+        <div class="container mx-auto text-center">
+            <h2 class="text-4xl font-bold text-gray-800 mb-12">
+                What I Offer: <span class="text-blue-600">Diverse GIS Content</span>
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                <!-- Service Card 1 -->
+                <div class="bg-white p-8 rounded-xl shadow-lg border border-blue-100 transform hover:scale-105 transition duration-300">
+                    <div class="text-blue-500 mb-4">
+                        <svg class="w-12 h-12 mx-auto" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93h7v7.93zm1-15.93c3.95.49 7 3.85 7 7.93h-7V4.07zm0 14.93V12h7c0 4.08-3.05 7.44-7 7.93zM12 4.07V12H5c0-4.08 3.05-7.44 7-7.93z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-4">GIS Tutorials</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        Step-by-step guides for beginners and advanced users on various GIS software and programming languages. Master the fundamentals and advanced techniques.
+                    </p>
+                </div>
+
+                <!-- Service Card 2 -->
+                <div class="bg-white p-8 rounded-xl shadow-lg border border-blue-100 transform hover:scale-105 transition duration-300">
+                    <div class="text-green-500 mb-4">
+                        <svg class="w-12 h-12 mx-auto" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93h7v7.93zm1-15.93c3.95.49 7 3.85 7 7.93h-7V4.07zm0 14.93V12h7c0 4.08-3.05 7.44-7 7.93zM12 4.07V12H5c0-4.08 3.05-7.44 7-7.93z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-4">Spatial Analysis</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        In-depth articles and case studies on advanced spatial analysis methods, including network analysis, geostatistics, and predictive modeling.
+                    </p>
+                </div>
+
+                <!-- Service Card 3 -->
+                <div class="bg-white p-8 rounded-xl shadow-lg border border-blue-100 transform hover:scale-105 transition duration-300">
+                    <div class="text-purple-500 mb-4">
+                        <svg class="w-12 h-12 mx-auto" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93h7v7.93zm1-15.93c3.95.49 7 3.85 7 7.93h-7V4.07zm0 14.93V12h7c0 4.08-3.05 7.44-7 7.93zM12 4.07V12H5c0-4.08 3.05-7.44 7-7.93z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-4">Data Visualization</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        Techniques and best practices for creating compelling and informative maps and data visualizations that tell powerful spatial stories.
+                    </p>
+                </div>
+
+                <!-- Service Card 4 -->
+                <div class="bg-white p-8 rounded-xl shadow-lg border border-blue-100 transform hover:scale-105 transition duration-300">
+                    <div class="text-red-500 mb-4">
+                        <svg class="w-12 h-12 mx-auto" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93h7v7.93zm1-15.93c3.95.49 7 3.85 7 7.93h-7V4.07zm0 14.93V12h7c0 4.08-3.05 7.44-7 7.93zM12 4.07V12H5c0-4.08 3.05-7.44 7-7.93z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-4">Remote Sensing</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        Understanding satellite imagery, aerial photography, and drone data for mapping and environmental monitoring.
+                    </p>
+                </div>
+
+                <!-- Service Card 5 -->
+                <div class="bg-white p-8 rounded-xl shadow-lg border border-blue-100 transform hover:scale-105 transition duration-300">
+                    <div class="text-yellow-500 mb-4">
+                        <svg class="w-12 h-12 mx-auto" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93h7v7.93zm1-15.93c3.95.49 7 3.85 7 7.93h-7V4.07zm0 14.93V12h7c0 4.08-3.05 7.44-7 7.93zM12 4.07V12H5c0-4.08 3.05-7.44 7-7.93z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-4">GIS Career Advice</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        Insights and tips for navigating the GIS industry, from job hunting to professional development and skill building.
+                    </p>
+                </div>
+
+                <!-- Service Card 6 -->
+                <div class="bg-white p-8 rounded-xl shadow-lg border border-blue-100 transform hover:scale-105 transition duration-300">
+                    <div class="text-teal-500 mb-4">
+                        <svg class="w-12 h-12 mx-auto" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93h7v7.93zm1-15.93c3.95.49 7 3.85 7 7.93h-7V4.07zm0 14.93V12h7c0 4.08-3.05 7.44-7 7.93zM12 4.07V12H5c0-4.08 3.05-7.44 7-7.93z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-4">GIS News & Trends</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        Stay updated with the latest advancements, software updates, and emerging trends in the dynamic world of GIS technology.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="py-20 px-6 md:px-12 bg-gray-50 rounded-xl shadow-inner my-12 mx-auto max-w-7xl">
+        <div class="container mx-auto text-center">
+            <h2 class="text-4xl font-bold text-gray-800 mb-12">
+                My <span class="text-blue-600">Recent Projects</span> & Creations
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                <!-- Portfolio Item 1 -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200 transform hover:scale-105 transition duration-300">
+                    <img src="https://placehold.co/600x400/a78bfa/ffffff?text=Urban+Growth+Map" alt="Urban Growth Analysis Map" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Urban Growth Analysis</h3>
+                        <p class="text-gray-600 text-sm mb-4">
+                            A detailed study mapping urban expansion patterns over two decades using satellite imagery and GIS.
+                        </p>
+                        <a href="#" class="text-blue-500 hover:text-blue-700 font-medium transition duration-300">View Project &rarr;</a>
+                    </div>
+                </div>
+
+                <!-- Portfolio Item 2 -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200 transform hover:scale-105 transition duration-300">
+                    <img src="https://placehold.co/600x400/34d399/ffffff?text=Environmental+Impact" alt="Environmental Impact Assessment Map" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Environmental Impact Assessment</h3>
+                        <p class="text-gray-600 text-sm mb-4">
+                            Visualizing the ecological footprint of industrial development on local ecosystems.
+                        </p>
+                        <a href="#" class="text-blue-500 hover:text-blue-700 font-medium transition duration-300">View Project &rarr;</a>
+                    </div>
+                </div>
+
+                <!-- Portfolio Item 3 -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200 transform hover:scale-105 transition duration-300">
+                    <img src="https://placehold.co/600x400/fcd34d/ffffff?text=Public+Health+Mapping" alt="Public Health Mapping Dashboard" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Public Health Mapping</h3>
+                        <p class="text-gray-600 text-sm mb-4">
+                            Interactive dashboard showing disease prevalence and healthcare accessibility in rural areas.
+                        </p>
+                        <a href="#" class="text-blue-500 hover:text-blue-700 font-medium transition duration-300">View Project &rarr;</a>
+                    </div>
+                </div>
+
+                <!-- Portfolio Item 4 -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200 transform hover:scale-105 transition duration-300">
+                    <img src="https://placehold.co/600x400/fb7185/ffffff?text=Remote+Sensing+Analysis" alt="Remote Sensing Analysis for Agriculture" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Agricultural Yield Prediction</h3>
+                        <p class="text-gray-600 text-sm mb-4">
+                            Utilizing satellite data and machine learning to predict crop yields and optimize farming practices.
+                        </p>
+                        <a href="#" class="text-blue-500 hover:text-blue-700 font-medium transition duration-300">View Project &rarr;</a>
+                    </div>
+                </div>
+
+                <!-- Portfolio Item 5 -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200 transform hover:scale-105 transition duration-300">
+                    <img src="https://placehold.co/600x400/818cf8/ffffff?text=Transportation+Network" alt="Transportation Network Optimization" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Transportation Network Optimization</h3>
+                        <p class="text-gray-600 text-sm mb-4">
+                            Analyzing road networks to identify bottlenecks and suggest improvements for traffic flow.
+                        </p>
+                        <a href="#" class="text-blue-500 hover:text-blue-700 font-medium transition duration-300">View Project &rarr;</a>
+                    </div>
+                </div>
+
+                <!-- Portfolio Item 6 -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200 transform hover:scale-105 transition duration-300">
+                    <img src="https://placehold.co/600x400/6ee7b7/ffffff?text=Climate+Change+Impact" alt="Climate Change Impact Visualization" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Climate Change Vulnerability</h3>
+                        <p class="text-gray-600 text-sm mb-4">
+                            Mapping areas most vulnerable to climate change impacts, aiding in disaster preparedness.
+                        </p>
+                        <a href="#" class="text-blue-500 hover:text-blue-700 font-medium transition duration-300">View Project &rarr;</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="py-20 px-6 md:px-12 bg-blue-600 text-white rounded-xl shadow-xl my-12 mx-auto max-w-7xl">
+        <div class="container mx-auto text-center">
+            <h2 class="text-4xl font-bold mb-12">
+                What My <span class="text-yellow-300">Audience Says</span>
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                <!-- Testimonial 1 -->
+                <div class="bg-blue-700 p-8 rounded-xl shadow-lg border border-blue-500">
+                    <p class="text-lg italic mb-6">
+                        "GeoVisionary's tutorials are incredibly clear and comprehensive. I went from a complete GIS novice to confidently performing spatial analysis thanks to their content!"
+                    </p>
+                    <div class="flex items-center justify-center space-x-4">
+                        <img src="https://placehold.co/60x60/ffffff/000000?text=JD" alt="John Doe" class="w-16 h-16 rounded-full border-2 border-yellow-300">
+                        <div>
+                            <p class="font-semibold text-xl">Jane Doe</p>
+                            <p class="text-blue-200">GIS Student</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="bg-blue-700 p-8 rounded-xl shadow-lg border border-blue-500">
+                    <p class="text-lg italic mb-6">
+                        "The insights on remote sensing are invaluable. GeoVisionary provides practical applications that are hard to find elsewhere. A must-follow for anyone in GIS!"
+                    </p>
+                    <div class="flex items-center justify-center space-x-4">
+                        <img src="https://placehold.co/60x60/ffffff/000000?text=AS" alt="Alice Smith" class="w-16 h-16 rounded-full border-2 border-yellow-300">
+                        <div>
+                            <p class="font-semibold text-xl">Alex Smith</p>
+                            <p class="text-blue-200">Environmental Consultant</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="bg-blue-700 p-8 rounded-xl shadow-lg border border-blue-500">
+                    <p class="text-lg italic mb-6">
+                        "I love the way complex topics are broken down into digestible pieces. The career advice section alone is worth subscribing for!"
+                    </p>
+                    <div class="flex items-center justify-center space-x-4">
+                        <img src="https://placehold.co/60x60/ffffff/000000?text=MB" alt="Mary Brown" class="w-16 h-16 rounded-full border-2 border-yellow-300">
+                        <div>
+                            <p class="font-semibold text-xl">Maria Brown</p>
+                            <p class="text-blue-200">Aspiring GIS Analyst</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 4 -->
+                <div class="bg-blue-700 p-8 rounded-xl shadow-lg border border-blue-500">
+                    <p class="text-lg italic mb-6">
+                        "Their data visualization tips transformed my map presentations. My clients are much more engaged now. Highly recommend GeoVisionary!"
+                    </p>
+                    <div class="flex items-center justify-center space-x-4">
+                        <img src="https://placehold.co/60x60/ffffff/000000?text=RS" alt="Robert Smith" class="w-16 h-16 rounded-full border-2 border-yellow-300">
+                        <div>
+                            <p class="font-semibold text-xl">Robert Green</p>
+                            <p class="text-blue-200">Urban Planner</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action / Newsletter Section -->
+    <section class="py-20 px-6 md:px-12 bg-purple-600 text-white rounded-xl shadow-xl my-12 mx-auto max-w-7xl text-center">
+        <div class="container mx-auto">
+            <h2 class="text-4xl font-bold mb-6">
+                Don't Miss Out! <span class="text-yellow-300">Subscribe for Updates</span>
+            </h2>
+            <p class="text-xl mb-8 max-w-2xl mx-auto opacity-90">
+                Get the latest GIS tutorials, insights, and project showcases delivered directly to your inbox. Join our growing community!
+            </p>
+            <form class="flex flex-col md:flex-row justify-center items-center gap-4 max-w-xl mx-auto">
+                <input type="email" placeholder="Your Email Address" class="flex-grow p-4 rounded-lg bg-white text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-md" required>
+                <button type="submit" class="bg-yellow-400 text-purple-800 font-bold py-4 px-8 rounded-lg shadow-lg hover:bg-yellow-300 btn-glow transition duration-300 transform hover:scale-105">
+                    Subscribe Now
+                </button>
+            </form>
+            <p class="text-sm mt-4 opacity-70">
+                We respect your privacy. Unsubscribe anytime.
+            </p>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 px-6 md:px-12 bg-gray-50 rounded-xl shadow-inner my-12 mx-auto max-w-7xl">
+        <div class="container mx-auto text-center">
+            <h2 class="text-4xl font-bold text-gray-800 mb-12">
+                Get In <span class="text-blue-600">Touch</span>
+            </h2>
+            <div class="max-w-3xl mx-auto bg-white p-10 rounded-xl shadow-lg border border-gray-200">
+                <p class="text-lg text-gray-700 mb-8">
+                    Have a question, a project idea, or just want to say hello? Fill out the form below or reach out directly!
+                </p>
+                <form class="space-y-6">
+                    <div>
+                        <label for="name" class="block text-left text-gray-700 text-sm font-semibold mb-2">Name</label>
+                        <input type="text" id="name" name="name" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="Your Name" required>
+                    </div>
+                    <div>
+                        <label for="email" class="block text-left text-gray-700 text-sm font-semibold mb-2">Email</label>
+                        <input type="email" id="email" name="email" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="your.email@example.com" required>
+                    </div>
+                    <div>
+                        <label for="subject" class="block text-left text-gray-700 text-sm font-semibold mb-2">Subject</label>
+                        <input type="text" id="subject" name="subject" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="Topic of your message">
+                    </div>
+                    <div>
+                        <label for="message" class="block text-left text-gray-700 text-sm font-semibold mb-2">Message</label>
+                        <textarea id="message" name="message" rows="6" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 resize-y" placeholder="Your message..." required></textarea>
+                    </div>
+                    <button type="submit" class="bg-blue-600 text-white font-bold py-3 px-8 rounded-lg shadow-lg hover:bg-blue-700 btn-glow transition duration-300 transform hover:scale-105">
+                        Send Message
+                    </button>
+                </form>
+            </div>
+            <div class="mt-12 text-gray-700">
+                <p class="text-xl font-semibold mb-4">Find Me On Social Media:</p>
+                <div class="flex justify-center space-x-6">
+                    <a href="#" class="text-blue-500 hover:text-blue-700 transition duration-300">
+                        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.761 0 5-2.239 5-5v-14c0-2.761-2.239-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="text-blue-500 hover:text-blue-700 transition duration-300">
+                        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .732.593 1.324 1.325 1.324h11.493v-9.294h-3.13v-3.626h3.13v-2.182c0-3.116 1.893-4.819 4.659-4.819 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.626h-3.12v9.293h6.116c.732 0 1.325-.593 1.325-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="text-blue-500 hover:text-blue-700 transition duration-300">
+                        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2C6.477 2 2 6.477 2 12c0 4.237 2.636 7.855 6.356 9.313.52.096.712-.224.712-.497v-1.734c-2.56.557-3.1-.618-3.1-1.182-.249-.593-.607-.755-1.026-.827-.372-.062-.907-.353-.062-.364.793-.008 1.373.743 1.566 1.054.896 1.54 2.336 1.1 2.903.844.091-.655.35-1.1.636-1.349-2.22-.252-4.555-1.11-4.555-4.943 0-1.09.389-1.98 1.026-2.68-.103-.252-.446-1.267.098-2.648 0 0 .838-.268 2.743 1.023.79-.22 1.62-.33 2.45-.33.83 0 1.66.11 2.45.33 1.905-1.291 2.743-1.023 2.743-1.023.544 1.381.201 2.396.098 2.648.637.7 1.026 1.59 1.026 2.68 0 3.84-2.335 4.686-4.565 4.935.359.308.683.915.683 1.846v2.72c0 .273.192.593.712.497C21.364 19.855 24 16.237 24 12 24 6.477 19.523 2 14 2z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="text-blue-500 hover:text-blue-700 transition duration-300">
+                        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M21.543 6.495c0-1.18-.96-2.14-2.14-2.14H4.607c-1.18 0-2.14.96-2.14 2.14v11.01c0 1.18.96 2.14 2.14 2.14h14.796c1.18 0 2.14-.96 2.14-2.14V6.495zm-1.895 1.493l-6.84 3.943-6.84-3.943H3.607v9.01h16.796V7.988zM12 14.5l6.84-3.943-6.84-3.943-6.84 3.943L12 14.5z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer class="bg-gray-800 text-gray-300 py-10 px-6 md:px-12 rounded-t-xl shadow-inner">
+        <div class="container mx-auto text-center">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+                <!-- Footer Column 1 -->
+                <div>
+                    <h4 class="text-xl font-semibold text-white mb-4">GeoVisionary</h4>
+                    <p class="text-sm leading-relaxed">
+                        Empowering the next generation of GIS professionals and enthusiasts with high-quality, accessible content.
+                    </p>
+                </div>
+                <!-- Footer Column 2 -->
+                <div>
+                    <h4 class="text-xl font-semibold text-white mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#about" class="hover:text-blue-400 transition duration-300">About Me</a></li>
+                        <li><a href="#services" class="hover:text-blue-400 transition duration-300">My Services</a></li>
+                        <li><a href="#portfolio" class="hover:text-blue-400 transition duration-300">Portfolio</a></li>
+                        <li><a href="#" class="hover:text-blue-400 transition duration-300">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <!-- Footer Column 3 -->
+                <div>
+                    <h4 class="text-xl font-semibold text-white mb-4">Contact Info</h4>
+                    <p class="text-sm">Email: info@geovisionary.com</p>
+                    <p class="text-sm">Phone: +1 (555) 123-4567</p>
+                    <p class="text-sm">Location: Global (Online)</p>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 pt-8 text-sm">
+                &copy; 2025 GeoVisionary. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
